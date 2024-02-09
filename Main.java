@@ -41,7 +41,7 @@ public class Main {
         comp2.ozu = 2;
         comp2.disk = 512;
         comp2.os = "Windows 8";
-        comp2.color = "синий";
+        comp2.color = "черный";
 
         Computers comp3 = new Computers();
         comp3.ozu = 4;
@@ -61,21 +61,28 @@ public class Main {
         comp5.os = "Windows 11";
         comp5.color = "красный";
 
+        Computers comp6 = new Computers();
+        comp6.ozu = 16;
+        comp6.disk = 512;
+        comp6.os = "Windows 8";
+        comp6.color = "синий";
+
         Set<Computers> computers = new HashSet<>();
         computers.add(comp1);
         computers.add(comp2);
         computers.add(comp3);
         computers.add(comp4);
         computers.add(comp5);
+        computers.add(comp6);
 
         // Спрашиваем пользователя параметры поиска:
 
         Scanner scanner = new Scanner(System.in);
         Map<Integer,String> chois = new HashMap<>(4);
-        chois.put(1, "Введите минимальное значение Оперативной памяти:");
-        chois.put(2, "Введите минимальный объем Жесткого диска:");
-        chois.put(3, "Выберите Операционную систему: 1 - Windows 8,   2 - Windows 11");
-        chois.put(4, "Выберите цвет: 1 - красный, 2 - синий, 3 - черный ");
+        chois.put(1, "Введите минимальное значение Оперативной памяти в Гб:");
+        chois.put(2, "Введите минимальный объем Жесткого диска в Гб:");
+        chois.put(3, "Выберите номер Операционной системы: 1 - Windows 8,   2 - Windows 11");
+        chois.put(4, "Выберите номер цвета: 1 - красный, 2 - синий, 3 - черный ");
 
         Map<Integer,Integer> polzovatel = new HashMap<>();
         int a = 0;
@@ -112,7 +119,7 @@ public class Main {
         // Выводим результаты поиска:
         System.out.println("По вашим введенным параметрам :");
         printVvod(polzovatel);
-        System.out.println("подходят следующие компьютеры:");
+        System.out.println("Подходят следующие компьютеры:");
 
         // Наполняем выбор пользователя нулями где не был указан выбор параметра
         Map<Integer,Integer> poisk = new HashMap<>();
@@ -121,7 +128,14 @@ public class Main {
             poisk.putIfAbsent(i, 0);
         }
         // Выводим итог используя метод:
-        printSet(filter(computers, poisk));
+
+        if (filter(computers,poisk).size() == 0){
+            System.out.println("к сожалению в наличие нет подходящих компьютеров((");
+        } else {
+            printSet(filter(computers, poisk));
+
+        }
+
 
     }
 
@@ -211,28 +225,28 @@ public class Main {
         for (var i : vvod.keySet()){
             switch (i){
                 case 1:
-                    System.out.println("ОЗУ = " + vvod.get(i) + "\n");
+                    System.out.println("ОЗУ = " + vvod.get(i));
                     break;
                 case 2:
-                    System.out.println("Объем ЖД = " + vvod.get(i) + "\n");
+                    System.out.println("Объем ЖД = " + vvod.get(i));
                     break;
                 case 3:
                     if(vvod.get(i) == 1){
-                        System.out.println("Операционная система - Windows 8\n");
+                        System.out.println("Операционная система - Windows 8");
                     }
                     if(vvod.get(i) ==2) {
-                        System.out.println("Операционная система - Windows 11\n");
+                        System.out.println("Операционная система - Windows 11");
                     }
                     break;
                 case 4:
                     if(vvod.get(i) == 1){
-                        System.out.println("Цвет - красный\n");
+                        System.out.println("Цвет - красный");
                     } 
                     if (vvod.get(i) == 2) {
-                        System.out.println("Цвет - синий\n");
+                        System.out.println("Цвет - синий");
                     }
                     if (vvod.get(i) == 3) {
-                        System.out.println("Цвет - синий\n");
+                        System.out.println("Цвет - черный");
                     }
                     break;
             }
